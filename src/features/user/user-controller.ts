@@ -27,7 +27,13 @@ namespace UserController {
 				const response: any = await client.chat.completions.create({
 						model: 'gpt-3.5-turbo',
 						messages: [
-							{ role: 'system', content: `${context}` },
+							{ role: 'system', content: `${context}. IMPORTANT: Format your response as Editor.js blocks in JSON format. Use these block types:
+      - paragraph: {"type": "paragraph", "data": {"text": "your text"}}
+      - header: {"type": "header", "data": {"text": "heading", "level": 2}}
+      - code: {"type": "code", "data": {"code": "your code"}}
+      - list: {"type": "list", "data": {"style": "unordered", "items": ["item1", "item2"]}}
+      
+      Return ONLY valid JSON with blocks array.` },
 							{ role: 'user', content: prompt },
 						],
 						stream: true,
